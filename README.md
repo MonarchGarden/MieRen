@@ -16,7 +16,6 @@
 - [Fitur Web & Asisten Virtual (Chatbot)](#-fitur-web--asisten-virtual-chatbot)
 - [Spesifikasi Teknis & Arsitektur](#-spesifikasi-teknis--arsitekur)
 - [Sertifikasi & Legalitas](#-sertifikasi--legalitas)
-- [Panduan Penggunaan & Setup](#-panduan-penggunaan--setup)
 - [Kontak & Pemesanan Grosir](#-kontak--pemesanan-grosir)
 
 ---
@@ -84,33 +83,6 @@ Aplikasi web MieRen dilengkapi dengan fitur-fitur interaktif modern:
 
 - **PIRT**: Telah memiliki izin resmi PIRT untuk industri rumah tangga makanan dan minuman.
 - **Sertifikasi Halal**: Sedang dalam tahap akhir proses pengurusan sertifikasi Halal.
-
----
-
-## 💻 Panduan Penggunaan & Setup
-
-### Prasyarat
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) (versi 3.19.0 atau lebih baru)
-- Browser Google Chrome atau Edge
-
-### Langkah Instalasi
-1. Clone repositori ini:
-   ```bash
-   git clone https://github.com/MonarchGarden/MieRen.git
-   cd MieRen
-   ```
-2. Unduh dependensi paket:
-   ```bash
-   flutter pub get
-   ```
-3. Jalankan aplikasi di browser Chrome:
-   ```bash
-   flutter run -d chrome
-   ```
-4. Menjalankan pengujian otomatis (*unit & widget testing*):
-   ```bash
-   flutter test
-   ```
 
 ---
 
