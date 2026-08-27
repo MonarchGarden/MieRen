@@ -300,11 +300,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 const SizedBox(height: 32),
 
-                // 6. FOOTER
+                // 6. FOOTER (Green gradient matching the top Hero Banner)
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(24),
-                  color: isDark ? Colors.black26 : Colors.grey.shade200,
+                  padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: isDark
+                          ? [const Color(0xFF061507), const Color(0xFF143B16), const Color(0xFF0B210D)]
+                          : [const Color(0xFF154318), const Color(0xFF1B5E20), const Color(0xFF2E7D32), const Color(0xFF0F4318)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
                   child: Column(
                     children: [
                       Image.asset(
@@ -318,23 +326,32 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Text(
                         company.name,
-                        style: theme.textTheme.titleMedium?.copyWith(
+                        style: const TextStyle(
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 0.5,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         company.tagline,
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12),
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFFA5D6A7),
+                        ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 16),
                       Text(
                         '© 2026 MieRen. All rights reserved.',
-                        style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.white.withValues(alpha: 0.7),
+                        ),
                       ),
                     ],
                   ),
