@@ -611,33 +611,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(width: 24),
                   Expanded(
                     flex: 2,
-                    child: Container(
-                      height: 240,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.2),
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(16),
-                      child: Image.asset(
-                        'assets/images/hero_noodle.png',
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(
-                          Icons.ramen_dining_rounded,
-                          size: 100,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
+                    child: _buildHeroNoodleCard(isWide: true),
                   ),
                 ],
               );
             }
 
-            return content;
+            return Column(
+              children: [
+                content,
+                const SizedBox(height: 20),
+                _buildHeroNoodleCard(isWide: false),
+              ],
+            );
           },
         ),
       ],
@@ -647,6 +633,82 @@ class _HomeScreenState extends State<HomeScreen> {
 ],
 );
 }
+
+  Widget _buildHeroNoodleCard({required bool isWide}) {
+    return Container(
+      height: isWide ? 260 : 190,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFD4AF37).withValues(alpha: 0.25),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+        border: Border.all(
+          color: const Color(0xFFD4AF37).withValues(alpha: 0.5),
+          width: 1.5,
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(18),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              'assets/images/hero_noodle.png',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Image.asset(
+                'assets/images/caisim_noodle_hd.png',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const Center(
+                  child: Icon(
+                    Icons.ramen_dining_rounded,
+                    size: 80,
+                    color: Colors.white70,
+                  ),
+                ),
+              ),
+            ),
+
+            // Floating Glassmorphic Tag Badge
+            Positioned(
+              bottom: 12,
+              right: 12,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.55),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.6),
+                  ),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.eco_rounded, color: Color(0xFFA5D6A7), size: 14),
+                    SizedBox(width: 6),
+                    Text(
+                      '100% Sayur Alami',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _buildHeroBadge({required IconData icon, required String label}) {
     return Container(
