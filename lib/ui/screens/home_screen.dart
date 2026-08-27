@@ -99,9 +99,27 @@ class _HomeScreenState extends State<HomeScreen> {
     final company = CatalogRepository.companyInfo;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // Main Scrollable Content
+      backgroundColor: isDark ? const Color(0xFF140A0A) : const Color(0xFFFFFDF8),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: isDark
+                ? [const Color(0xFF140A0A), const Color(0xFF1F0E0E), const Color(0xFF120808)]
+                : [const Color(0xFFFFFDF8), const Color(0xFFFBF4E6), const Color(0xFFF5ECE0)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Stack(
+          children: [
+            // Oriental Background Wave & Motif Pattern
+            Positioned.fill(
+              child: CustomPaint(
+                painter: OrientalBackgroundPainter(isDark: isDark),
+              ),
+            ),
+
+            // Main Scrollable Content
           SingleChildScrollView(
             child: Column(
               children: [
@@ -372,6 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+    ),
     );
   }
 
@@ -381,21 +400,37 @@ class _HomeScreenState extends State<HomeScreen> {
     ThemeData theme,
     bool isDark,
   ) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: isDark
-              ? [const Color(0xFF1B5E20), const Color(0xFF003300)]
-              : [const Color(0xFF2E7D32), const Color(0xFF1B5E20)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+    return Stack(
+      children: [
+        // Multi-stop Rich Gradient Background
+        Positioned.fill(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: isDark
+                    ? [const Color(0xFF0B210D), const Color(0xFF143B16), const Color(0xFF061507)]
+                    : [const Color(0xFF0F4318), const Color(0xFF1B5E20), const Color(0xFF2E7D32), const Color(0xFF154318)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
         ),
-      ),
-      padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
-      child: SafeArea(
-        bottom: false,
-        child: Column(
+
+        // Custom Organic Pattern & Floating Ambient Glows
+        Positioned.fill(
+          child: CustomPaint(
+            painter: HeroBackgroundPainter(isDark: isDark),
+          ),
+        ),
+
+        // Hero Content
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(20, 24, 20, 36),
+          child: SafeArea(
+            bottom: false,
+            child: Column(
           children: [
             // Top Header Actions
             Align(
@@ -591,6 +626,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     ),
   ),
+),
+],
 );
 }
 
@@ -659,13 +696,29 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Mengapa Memilih MieRen?',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+        // Oriental Section Header Title with Gold Seal Line
+        Row(
+          children: [
+            Container(
+              width: 5,
+              height: 24,
+              decoration: BoxDecoration(
+                color: const Color(0xFFD4AF37),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              'Mengapa Memilih MieRen?',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.2,
+                color: isDark ? const Color(0xFFE8F5E9) : const Color(0xFF1E2E1E),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 14),
         LayoutBuilder(
           builder: (context, constraints) {
             final isWide = constraints.maxWidth > 650;
@@ -683,10 +736,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: advColor.withValues(alpha: isDark ? 0.15 : 0.08),
-                      borderRadius: BorderRadius.circular(14),
+                      color: isDark ? const Color(0xFF1F1212) : const Color(0xFFFFFDF8),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFD4AF37).withValues(alpha: isDark ? 0.08 : 0.12),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                       border: Border.all(
-                        color: advColor.withValues(alpha: 0.25),
+                        color: const Color(0xFFD4AF37).withValues(alpha: 0.4),
+                        width: 1.2,
                       ),
                     ),
                     child: Column(
@@ -694,10 +755,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(6),
+                          padding: const EdgeInsets.all(7),
                           decoration: BoxDecoration(
                             color: advColor,
                             shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: advColor.withValues(alpha: 0.4),
+                                blurRadius: 6,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
                           ),
                           child: Icon(
                             adv['icon'] as IconData,
@@ -705,12 +773,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 10),
                         Text(
                           adv['title'] as String,
                           style: theme.textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : Colors.black87,
+                            color: isDark ? const Color(0xFFF5ECE0) : const Color(0xFF2A1C1C),
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -718,7 +786,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           adv['desc'] as String,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             fontSize: 11,
-                            height: 1.3,
+                            height: 1.35,
+                            color: isDark ? Colors.white70 : const Color(0xFF5A4A4A),
                           ),
                         ),
                       ],
@@ -771,4 +840,84 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+class HeroBackgroundPainter extends CustomPainter {
+  final bool isDark;
+  HeroBackgroundPainter({required this.isDark});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final glowPaint = Paint()
+      ..color = Colors.white.withValues(alpha: isDark ? 0.04 : 0.08)
+      ..style = PaintingStyle.fill;
+
+    final linePaint = Paint()
+      ..color = Colors.white.withValues(alpha: isDark ? 0.06 : 0.12)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
+
+    // Ambient floating circles
+    canvas.drawCircle(Offset(size.width * 0.1, size.height * 0.15), 140, glowPaint);
+    canvas.drawCircle(Offset(size.width * 0.92, size.height * 0.75), 180, glowPaint);
+    canvas.drawCircle(Offset(size.width * 0.85, size.height * 0.1), 90, glowPaint);
+
+    // Organic botanical wave lines across background
+    final path1 = Path();
+    path1.moveTo(0, size.height * 0.75);
+    path1.cubicTo(
+      size.width * 0.35, size.height * 0.45,
+      size.width * 0.65, size.height * 0.95,
+      size.width, size.height * 0.65,
+    );
+    canvas.drawPath(path1, linePaint);
+
+    final path2 = Path();
+    path2.moveTo(0, size.height * 0.25);
+    path2.cubicTo(
+      size.width * 0.4, size.height * 0.05,
+      size.width * 0.7, size.height * 0.55,
+      size.width, size.height * 0.15,
+    );
+    canvas.drawPath(path2, linePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class OrientalBackgroundPainter extends CustomPainter {
+  final bool isDark;
+  OrientalBackgroundPainter({required this.isDark});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final goldPaint = Paint()
+      ..color = const Color(0xFFD4AF37).withValues(alpha: isDark ? 0.08 : 0.12)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.2;
+
+    final cloudPaint = Paint()
+      ..color = const Color(0xFF8B0000).withValues(alpha: isDark ? 0.06 : 0.04)
+      ..style = PaintingStyle.fill;
+
+    // Draw traditional Seigaiha / Oriental concentric wave arches
+    const double radius = 36;
+    for (double y = 0; y < size.height + radius * 2; y += radius * 1.2) {
+      final double xOffset = ((y / (radius * 1.2)).floor() % 2 == 0) ? 0 : radius;
+      for (double x = -radius + xOffset; x < size.width + radius * 2; x += radius * 2) {
+        for (int r = 1; r <= 3; r++) {
+          final rect = Rect.fromCircle(center: Offset(x, y), radius: radius * (r / 3.0));
+          canvas.drawArc(rect, 3.14159, 3.14159, false, goldPaint);
+        }
+      }
+    }
+
+    // Draw subtle oriental seal cloud motif accents
+    canvas.drawCircle(Offset(size.width * 0.08, size.height * 0.25), 60, cloudPaint);
+    canvas.drawCircle(Offset(size.width * 0.92, size.height * 0.75), 80, cloudPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

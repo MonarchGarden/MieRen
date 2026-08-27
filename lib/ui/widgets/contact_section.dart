@@ -71,10 +71,18 @@ class ContactSection extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1B2E1C) : const Color(0xFFE8F5E9),
+        color: isDark ? const Color(0xFF1E1010) : const Color(0xFFFFFDF7),
         borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFD4AF37).withValues(alpha: isDark ? 0.08 : 0.12),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
         border: Border.all(
-          color: theme.colorScheme.primary.withValues(alpha: 0.3),
+          color: const Color(0xFFD4AF37).withValues(alpha: 0.45),
+          width: 1.2,
         ),
       ),
       child: Column(
