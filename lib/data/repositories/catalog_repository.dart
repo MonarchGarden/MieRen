@@ -51,7 +51,7 @@ class CatalogRepository {
     shelfLife: '±3 Bulan (Dry Product)',
     weightStandard: '38 gram / pc (Bisa Custom)',
     pricingPolicy: 'Fleksibel sesuai volume kuantitas pembelian (Grosir & Restoran)',
-    pirtStatus: 'Telah memiliki PIRT',
+    pirtStatus: 'P-IRT: 2053671091478-31',
     halalStatus: 'Sedang dalam proses sertifikasi Halal',
   );
 

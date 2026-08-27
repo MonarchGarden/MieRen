@@ -81,7 +81,7 @@ Aplikasi web MieRen dilengkapi dengan fitur-fitur interaktif modern:
 
 ## 🛡️ Sertifikasi & Legalitas
 
-- **PIRT**: Telah memiliki izin resmi PIRT untuk industri rumah tangga makanan dan minuman.
+- **P-IRT**: `2053671091478-31` (Telah memiliki izin resmi P-IRT untuk produksi makanan & minuman)
 - **Sertifikasi Halal**: Sedang dalam tahap akhir proses pengurusan sertifikasi Halal.
 
 ---
