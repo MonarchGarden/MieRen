@@ -372,7 +372,7 @@ class _ChatbotSheetState extends State<ChatbotSheet> {
                       onSubmitted: (_) => _handleSendMessage(),
                       textInputAction: TextInputAction.send,
                       decoration: InputDecoration(
-                        hintText: 'Ketik pertanyaan (maks. 200 karakter)...',
+                        hintText: 'Ketik Pertanyaan mengenai MieRen...',
                         hintStyle: const TextStyle(fontSize: 13),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 12),
