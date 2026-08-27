@@ -75,8 +75,13 @@ class _ChatbotSheetState extends State<ChatbotSheet> {
   }
 
   void _handleSendMessage([String? predefinedText]) {
-    final query = (predefinedText ?? _inputController.text).trim();
+    String query = (predefinedText ?? _inputController.text).trim();
     if (query.isEmpty) return;
+
+    // Security input clamping: max 200 characters
+    if (query.length > 200) {
+      query = query.substring(0, 200);
+    }
 
     if (predefinedText == null) {
       _inputController.clear();
@@ -358,10 +363,16 @@ class _ChatbotSheetState extends State<ChatbotSheet> {
                   Expanded(
                     child: TextField(
                       controller: _inputController,
+                      maxLength: 200,
+                      buildCounter: (context,
+                              {required currentLength,
+                              required isFocused,
+                              maxLength}) =>
+                          null,
                       onSubmitted: (_) => _handleSendMessage(),
                       textInputAction: TextInputAction.send,
                       decoration: InputDecoration(
-                        hintText: 'Ketik pertanyaan seputar MieRen...',
+                        hintText: 'Ketik pertanyaan (maks. 200 karakter)...',
                         hintStyle: const TextStyle(fontSize: 13),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 12),
