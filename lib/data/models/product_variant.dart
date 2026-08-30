@@ -23,6 +23,7 @@ extension ProductCategoryExtension on ProductCategory {
 }
 
 class ProductVariant {
+  final int number;
   final String id;
   final String name;
   final ProductCategory category;
@@ -38,6 +39,7 @@ class ProductVariant {
   final bool isPopular;
 
   const ProductVariant({
+    required this.number,
     required this.id,
     required this.name,
     required this.category,
@@ -48,7 +50,7 @@ class ProductVariant {
     required this.primaryColor,
     required this.ingredients,
     required this.highlights,
-    this.weightInfo = '38 gram / pc (Bisa Custom)',
+    this.weightInfo = '30 gr (bisa custom)',
     required this.badgeText,
     this.isPopular = false,
   });

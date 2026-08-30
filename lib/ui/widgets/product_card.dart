@@ -43,7 +43,7 @@ class ProductCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 1. Full-Bleed Image Header with Gradient Overlay & Badges
+                // 1. Image Header with Number Badge & Category Badge
                 SizedBox(
                   height: 150,
                   width: double.infinity,
@@ -64,7 +64,7 @@ class ProductCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Bottom gradient for visual depth
+                      // Bottom gradient for visual contrast
                       Positioned.fill(
                         child: DecoratedBox(
                           decoration: BoxDecoration(
@@ -80,40 +80,34 @@ class ProductCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Top Left Badge (e.g. Best Seller / Premium)
+                      // Top Left: PDF Catalog Item Number (1..5)
                       Positioned(
-                        top: 12,
-                        left: 12,
+                        top: 10,
+                        left: 10,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          width: 32,
+                          height: 32,
                           decoration: BoxDecoration(
                             color: product.primaryColor,
-                            borderRadius: BorderRadius.circular(20),
+                            shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withValues(alpha: 0.3),
-                                blurRadius: 6,
+                                blurRadius: 4,
                                 offset: const Offset(0, 2),
                               ),
                             ],
+                            border: Border.all(color: Colors.white, width: 1.5),
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (product.isPopular) ...[
-                                const Icon(Icons.star_rounded, size: 13, color: Colors.amber),
-                                const SizedBox(width: 4),
-                              ],
-                              Text(
-                                product.badgeText,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.2,
-                                ),
+                          child: Center(
+                            child: Text(
+                              '${product.number}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -144,24 +138,31 @@ class ProductCard extends StatelessWidget {
                       Positioned(
                         bottom: 10,
                         right: 12,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              Icons.scale_rounded,
-                              size: 12,
-                              color: Colors.white70,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              product.weightInfo.split('(').first.trim(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w500,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.6),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.scale_rounded,
+                                size: 12,
+                                color: Colors.amberAccent,
                               ),
-                            ),
-                          ],
+                              const SizedBox(width: 4),
+                              Text(
+                                product.weightInfo,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -294,4 +295,3 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-

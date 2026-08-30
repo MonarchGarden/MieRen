@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/models/product_variant.dart';
 import '../../data/repositories/catalog_repository.dart';
@@ -8,11 +9,13 @@ class ProductDetailSheet extends StatelessWidget {
 
   const ProductDetailSheet({super.key, required this.product});
 
-  Future<void> _orderViaWhatsApp(BuildContext context) async {
-    final String message =
-        'Halo Bu ${CatalogRepository.companyInfo.contactPerson}, saya tertarik untuk memesan / menanyakan sampel *${product.name}* (${product.badgeText}). Mohon info harga dan minimal pemesanan.';
+  Future<void> _orderViaWhatsApp(BuildContext context, {bool isSample = false}) async {
+    final info = CatalogRepository.companyInfo;
+    final String message = isSample
+        ? 'Halo Bu ${info.contactPerson}, saya tertarik untuk meminta sampel *#${product.number} ${product.name}* (${product.badgeText}) untuk restoran/usaha kami. Mohon info prosuder pengiriman sample.'
+        : 'Halo Bu ${info.contactPerson}, saya tertarik untuk memesan *#${product.number} ${product.name}* (${product.badgeText}). Mohon info harga grosir dan minimal pemesanan.';
     final Uri uri = Uri.parse(
-      'https://wa.me/${CatalogRepository.companyInfo.whatsappNumber}?text=${Uri.encodeComponent(message)}',
+      'https://wa.me/${info.whatsappNumber}?text=${Uri.encodeComponent(message)}',
     );
 
     try {
@@ -37,6 +40,7 @@ class ProductDetailSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final info = CatalogRepository.companyInfo;
 
     return Container(
       constraints: BoxConstraints(
@@ -67,7 +71,7 @@ class ProductDetailSheet extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Image & Hero Banner Container
+                  // Image & Hero Container
                   Center(
                     child: Container(
                       height: 200,
@@ -108,13 +112,41 @@ class ProductDetailSheet extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            // Catalog PDF Item Number Badge Top-Left
+                            Positioned(
+                              top: 12,
+                              left: 12,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: product.primaryColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 6,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Text(
+                                  'Katalog #${product.number}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // Top Right Badge
                             Positioned(
                               top: 12,
                               right: 12,
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: product.primaryColor,
+                                  color: Colors.black.withValues(alpha: 0.65),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
@@ -135,11 +167,12 @@ class ProductDetailSheet extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // Category & Title
+                  // Category & Weight Info Row (Vertically Centered)
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: theme.colorScheme.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
@@ -154,19 +187,25 @@ class ProductDetailSheet extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      const Icon(Icons.fitness_center_rounded, size: 16, color: Colors.grey),
-                      const SizedBox(width: 4),
-                      Text(
-                        product.weightInfo,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.scale_rounded, size: 16, color: Colors.amber),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Berat/pc: ${product.weightInfo}',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 12),
                   Text(
                     product.name,
                     style: theme.textTheme.headlineSmall?.copyWith(
@@ -175,7 +214,7 @@ class ProductDetailSheet extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
                   Text(
                     product.description,
                     style: theme.textTheme.bodyMedium?.copyWith(
@@ -185,8 +224,6 @@ class ProductDetailSheet extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 20),
-                  const Divider(),
-                  const SizedBox(height: 12),
 
                   // Highlights Section
                   Text(
@@ -200,7 +237,7 @@ class ProductDetailSheet extends StatelessWidget {
                     (highlight) => Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.check_circle_rounded,
@@ -211,7 +248,9 @@ class ProductDetailSheet extends StatelessWidget {
                           Expanded(
                             child: Text(
                               highlight,
-                              style: theme.textTheme.bodyMedium,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: isDark ? Colors.white70 : Colors.black87,
+                              ),
                             ),
                           ),
                         ],
@@ -255,28 +294,66 @@ class ProductDetailSheet extends StatelessWidget {
                     ).toList(),
                   ),
 
+                  const SizedBox(height: 16),
+
+                  // Legalities info badge (Vertically Centered Icon & Text)
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: isDark ? Colors.grey.shade900 : Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.verified_rounded, size: 18, color: Color(0xFF2E7D32)),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Sertifikasi: ${info.pirtStatus} | ${info.halalStatus}',
+                            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   const SizedBox(height: 24),
 
-                  // Action Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () => _orderViaWhatsApp(context),
-                      icon: const Icon(Icons.chat_rounded),
-                      label: Text('Tanya / Pesan ${product.name} via WA'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF25D366),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        textStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                  // Action Buttons (Aligned Icons & Labels)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: () => _orderViaWhatsApp(context, isSample: true),
+                          icon: const Icon(Icons.mark_email_read_rounded, size: 18),
+                          label: const Text('Minta Sample'),
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () => _orderViaWhatsApp(context, isSample: false),
+                          icon: const FaIcon(FontAwesomeIcons.whatsapp, size: 18),
+                          label: const Text('Pesan via WA'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF25D366),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
