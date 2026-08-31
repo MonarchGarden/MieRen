@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/models/product_variant.dart';
 import 'full_screen_image_viewer.dart';
-import 'watermark_overlay.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductVariant product;
@@ -48,7 +47,7 @@ class ProductCard extends StatelessWidget {
               children: [
                 // 1. Image Header with Number Badge & Category Badge
                 SizedBox(
-                  height: 150,
+                  height: 135,
                   width: double.infinity,
                   child: Stack(
                     children: [
@@ -64,29 +63,18 @@ class ProductCard extends StatelessWidget {
                           },
                           child: Container(
                             color: product.primaryColor.withValues(alpha: isDark ? 0.2 : 0.08),
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: Image.asset(
-                                    product.imageAsset,
-                                    fit: BoxFit.cover,
-                                    cacheWidth: 350, // Lower resolution preview
-                                    errorBuilder: (context, error, stackTrace) => Container(
-                                      color: product.primaryColor.withValues(alpha: 0.15),
-                                      child: Icon(
-                                        Icons.ramen_dining_rounded,
-                                        size: 72,
-                                        color: product.primaryColor,
-                                      ),
-                                    ),
-                                  ),
+                            child: Image.asset(
+                              product.imageAsset,
+                              fit: BoxFit.cover,
+                              cacheWidth: 350, // Lower resolution preview
+                              errorBuilder: (context, error, stackTrace) => Container(
+                                color: product.primaryColor.withValues(alpha: 0.15),
+                                child: Icon(
+                                  Icons.ramen_dining_rounded,
+                                  size: 72,
+                                  color: product.primaryColor,
                                 ),
-                                const WatermarkOverlay(
-                                  opacity: 0.16,
-                                  fontSize: 13,
-                                  watermarkText: 'MieRen © Preview',
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
@@ -244,49 +232,54 @@ class ProductCard extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Title with Accent Color Line
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Container(
-                              width: 4,
-                              height: 18,
-                              decoration: BoxDecoration(
-                                color: product.primaryColor,
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                product.name,
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  height: 1.2,
+                            // Title with Accent Color Line
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 4,
+                                  height: 18,
+                                  decoration: BoxDecoration(
+                                    color: product.primaryColor,
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
                                 ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    product.name,
+                                    style: theme.textTheme.titleMedium?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      height: 1.2,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+
+                            // Short Description
+                            Text(
+                              product.shortDescription,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontSize: 12,
+                                height: 1.35,
+                                color: isDark ? Colors.white70 : Colors.black87,
                               ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),
-                        const SizedBox(height: 6),
-
-                        // Short Description
-                        Text(
-                          product.shortDescription,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            fontSize: 12,
-                            height: 1.35,
-                            color: isDark ? Colors.white70 : Colors.black87,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-
-                        const Spacer(),
 
                         // Highlights preview chip
                         if (product.highlights.isNotEmpty) ...[

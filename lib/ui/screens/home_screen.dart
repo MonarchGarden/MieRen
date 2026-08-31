@@ -567,7 +567,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemWidth = constraints.maxWidth;
                   }
 
-                  final double childAspectRatio = (itemWidth / 350).clamp(0.7, 1.2);
+                  double childAspectRatio = 0.8;
+                  if (crossAxisCount == 3) {
+                    childAspectRatio = (itemWidth / 340).clamp(0.68, 0.82);
+                  } else if (crossAxisCount == 2) {
+                    childAspectRatio = (itemWidth / 330).clamp(0.68, 0.82);
+                  } else {
+                    childAspectRatio = (itemWidth / 340).clamp(0.75, 1.1);
+                  }
 
                   return GridView.builder(
                     shrinkWrap: true,

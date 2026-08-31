@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'watermark_overlay.dart';
 
 /// A full-screen interactive image viewer supporting pinch-to-zoom, panning,
 /// and high-resolution rendering.
@@ -92,59 +91,48 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> with Widg
                 maxScale: 4.0,
                 child: Hero(
                   tag: 'fullscreen_${widget.imageAsset}',
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      _isObscured
-                          ? Container(
-                              width: double.infinity,
-                              height: 350,
-                              color: const Color(0xFF111111),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.security, size: 54, color: Colors.white70),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    'Pratinjau Terlindungi\nTangkapan Layar Dilarang',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                  child: _isObscured
+                      ? Container(
+                          width: double.infinity,
+                          height: 350,
+                          color: const Color(0xFF111111),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.security, size: 54, color: Colors.white70),
+                              SizedBox(height: 12),
+                              Text(
+                                'Pratinjau Terlindungi\nTangkapan Layar Dilarang',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            )
-                          : Image.asset(
-                              widget.imageAsset,
-                              fit: BoxFit.contain,
-                              cacheWidth: 800,
-                              errorBuilder: (context, error, stackTrace) => Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(
-                                    Icons.broken_image_rounded,
-                                    color: Colors.white70,
-                                    size: 64,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    'Gambar tidak dapat dimuat',
-                                    style: TextStyle(color: Colors.white70, fontSize: 16),
-                                  ),
-                                ],
+                            ],
+                          ),
+                        )
+                      : Image.asset(
+                          widget.imageAsset,
+                          fit: BoxFit.contain,
+                          cacheWidth: 800,
+                          errorBuilder: (context, error, stackTrace) => Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.broken_image_rounded,
+                                color: Colors.white70,
+                                size: 64,
                               ),
-                            ),
-                      WatermarkOverlay(
-                        opacity: 0.45,
-                        fontSize: 15,
-                        denseGrid: true,
-                        watermarkText: 'MieRen © Confidential Preview • Screenshot Prohibited',
-                      ),
-                    ],
-                  ),
+                              SizedBox(height: 12),
+                              Text(
+                                'Gambar tidak dapat dimuat',
+                                style: TextStyle(color: Colors.white70, fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
                 ),
               ),
             ),
