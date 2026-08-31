@@ -46,8 +46,8 @@ class CatalogRepository {
     subtitle: 'MIE SAYUR',
     tagline: 'Produsen Mie Kering Berbahan Sayuran Segar Alami',
     contactPerson: 'Irene',
-    whatsappNumber: '628212633288',
-    formattedPhone: '628212633288',
+    whatsappNumber: '6282124633288',
+    formattedPhone: '+62 821-2463-3288',
     email: 'pinawatywijaya@gmail.com',
     aboutText:
         'Kami adalah produsen mie kering berbahan sayuran segar alami yang berfokus pada kualitas premium, konsistensi produksi, dan hadir untuk memberikan opsi alternatif kepada restoran untuk menyajikan hidangan karbohidrat (mie) namun dengan berbahan sayuran.',

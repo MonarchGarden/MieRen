@@ -91,7 +91,7 @@ Aplikasi web MieRen dilengkapi dengan fitur-fitur interaktif modern:
 Untuk informasi daftar harga grosir, pemesanan sampel produk, atau kerjasama pasokan rutin restoran/catering, silakan hubungi:
 
 - **Pemilik / Contact Person**: Bu Irene
-- **WhatsApp / Telepon**: [628212633288](https://wa.me/628212633288)
+- **WhatsApp / Telepon**: [+62 821-2463-3288](https://wa.me/6282124633288)
 - **Email**: `pinawatywijaya@gmail.com`
 - **Repositori Official**: [https://github.com/MonarchGarden/MieRen](https://github.com/MonarchGarden/MieRen)
 
