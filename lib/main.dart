@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/screens/home_screen.dart';
+import 'ui/screens/splash_screen.dart';
 import 'ui/theme/app_theme.dart';
 
 void main() {
@@ -30,7 +30,7 @@ class _MieRenAppState extends State<MieRenApp> {
       theme: AppTheme.lightTheme(),
       darkTheme: AppTheme.darkTheme(),
       themeMode: _themeMode,
-      home: HomeScreen(
+      home: SplashScreen(
         onToggleTheme: _toggleTheme,
         isDarkMode: _themeMode == ThemeMode.dark,
       ),
