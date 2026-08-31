@@ -24,6 +24,14 @@
   <meta name="description" content="MieRen - Produsen Mie Sayur Alami & Sehat">
 
   <style>
+    html, body, canvas, flt-glass-pane {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      perspective: 1000px;
+      -webkit-perspective: 1000px;
+    }
     * {
       -webkit-user-select: none !important;
       -moz-user-select: none !important;

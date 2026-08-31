@@ -72,17 +72,17 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 8),
 
             // --- HALAMAN 1: COVER KATALOG (PDF Page 1) ---
-            _buildPage1Cover(context, isDark),
+            RepaintBoundary(child: _buildPage1Cover(context, isDark)),
 
             const SizedBox(height: 32),
 
             // --- HALAMAN 2: PROFIL USAHA (PDF Page 2) ---
-            _buildPage2ProfilUsaha(context, isDark),
+            RepaintBoundary(child: _buildPage2ProfilUsaha(context, isDark)),
 
             const SizedBox(height: 32),
 
             // --- HALAMAN 3: VARIAN PRODUK (PDF Page 3) ---
-            _buildPage3VarianProduk(context, isDark),
+            RepaintBoundary(child: _buildPage3VarianProduk(context, isDark)),
 
             const SizedBox(height: 24),
           ],
