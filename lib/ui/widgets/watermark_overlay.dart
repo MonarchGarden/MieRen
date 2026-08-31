@@ -1,23 +1,48 @@
 import 'package:flutter/material.dart';
 
-/// A protective watermark overlay with dense diagonal brand text pattern and transparent guard
-/// layer that prevents long-press context menus, image saving, and screenshot theft.
+/// Watermark overlay for product detail images with controlled opacity and diagonal text.
 class WatermarkOverlay extends StatelessWidget {
   final String watermarkText;
   final double opacity;
   final double fontSize;
-  final bool denseGrid;
 
   const WatermarkOverlay({
     super.key,
-    this.watermarkText = 'MieRen © Confidential Preview • Do Not Copy',
-    this.opacity = 0.35,
-    this.fontSize = 16,
-    this.denseGrid = false,
+    this.watermarkText = 'MieRen',
+    this.opacity = 0.30,
+    this.fontSize = 18,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox.shrink();
+    return IgnorePointer(
+      child: Center(
+        child: Transform.rotate(
+          angle: -0.35, // Diagonal angle
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+              4,
+              (index) => Text(
+                '$watermarkText    $watermarkText    $watermarkText',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: opacity),
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 3.0,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withValues(alpha: opacity * 0.8),
+                      blurRadius: 3,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

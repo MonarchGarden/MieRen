@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../data/models/product_variant.dart';
 import '../../data/repositories/catalog_repository.dart';
 import 'full_screen_image_viewer.dart';
+import 'watermark_overlay.dart';
 
 class ProductDetailSheet extends StatelessWidget {
   final ProductVariant product;
@@ -124,6 +125,11 @@ class ProductDetailSheet extends StatelessWidget {
                                       ],
                                     ),
                                   ),
+                                ),
+                                const WatermarkOverlay(
+                                  watermarkText: 'MieRen',
+                                  opacity: 0.30,
+                                  fontSize: 18,
                                 ),
                                 // Zoom hint badge bottom right
                                 Positioned(
