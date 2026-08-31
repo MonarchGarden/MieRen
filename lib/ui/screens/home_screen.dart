@@ -554,45 +554,31 @@ class _HomeScreenState extends State<HomeScreen> {
               LayoutBuilder(
                 builder: (context, constraints) {
                   int crossAxisCount = 1;
-                  double itemWidth = constraints.maxWidth;
-
                   if (constraints.maxWidth > 850) {
                     crossAxisCount = 3;
-                    itemWidth = (constraints.maxWidth - 32) / 3;
                   } else if (constraints.maxWidth > 550) {
                     crossAxisCount = 2;
-                    itemWidth = (constraints.maxWidth - 16) / 2;
                   } else {
                     crossAxisCount = 1;
-                    itemWidth = constraints.maxWidth;
                   }
 
-                  double childAspectRatio = 0.95;
-                  if (crossAxisCount == 3) {
-                    childAspectRatio = (itemWidth / 280).clamp(0.85, 1.05);
-                  } else if (crossAxisCount == 2) {
-                    childAspectRatio = (itemWidth / 280).clamp(0.85, 1.05);
-                  } else {
-                    childAspectRatio = (itemWidth / 280).clamp(0.95, 1.35);
-                  }
+                  const double spacing = 16.0;
+                  final double itemWidth = crossAxisCount == 1
+                      ? constraints.maxWidth
+                      : (constraints.maxWidth - (crossAxisCount - 1) * spacing) / crossAxisCount;
 
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      childAspectRatio: childAspectRatio,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                    ),
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      final product = products[index];
-                      return ProductCard(
-                        product: product,
-                        onTap: () => _openProductDetail(product),
+                  return Wrap(
+                    spacing: spacing,
+                    runSpacing: spacing,
+                    children: products.map((product) {
+                      return SizedBox(
+                        width: itemWidth,
+                        child: ProductCard(
+                          product: product,
+                          onTap: () => _openProductDetail(product),
+                        ),
                       );
-                    },
+                    }).toList(),
                   );
                 },
               ),
