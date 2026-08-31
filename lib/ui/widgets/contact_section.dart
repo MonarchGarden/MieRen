@@ -140,10 +140,12 @@ class ContactSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _buildInfoRow(
-            iconWidget: FaIcon(FontAwesomeIcons.whatsapp, size: 20, color: theme.colorScheme.primary),
+            iconWidget: FaIcon(FontAwesomeIcons.whatsapp, size: 20, color: const Color(0xFF25D366)),
             title: 'WhatsApp',
             value: '${info.formattedPhone} (${info.contactPerson})',
             theme: theme,
+            onTap: () => _launchWA(context),
+            isLink: true,
           ),
           const SizedBox(height: 12),
           _buildInfoRow(
@@ -151,6 +153,8 @@ class ContactSection extends StatelessWidget {
             title: 'Email Official',
             value: info.email,
             theme: theme,
+            onTap: () => _launchEmail(context),
+            isLink: true,
           ),
           const SizedBox(height: 12),
           _buildInfoRow(
@@ -244,8 +248,10 @@ class ContactSection extends StatelessWidget {
     required String title,
     required String value,
     required ThemeData theme,
+    VoidCallback? onTap,
+    bool isLink = false,
   }) {
-    return Row(
+    final rowContent = Row(
       children: [
         SizedBox(width: 24, child: Center(child: iconWidget)),
         const SizedBox(width: 12),
@@ -263,11 +269,25 @@ class ContactSection extends StatelessWidget {
             value,
             style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: theme.textTheme.bodyLarge?.color,
+              color: isLink ? theme.colorScheme.primary : theme.textTheme.bodyLarge?.color,
+              decoration: isLink ? TextDecoration.underline : TextDecoration.none,
             ),
           ),
         ),
       ],
     );
+
+    if (onTap != null) {
+      return InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: rowContent,
+        ),
+      );
+    }
+
+    return rowContent;
   }
 }
