@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'watermark_overlay.dart';
 
 /// A full-screen interactive image viewer supporting pinch-to-zoom, panning,
 /// and high-resolution rendering.
@@ -113,25 +114,37 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> with Widg
                             ],
                           ),
                         )
-                      : Image.asset(
-                          widget.imageAsset,
-                          fit: BoxFit.contain,
-                          cacheWidth: 800,
-                          errorBuilder: (context, error, stackTrace) => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.broken_image_rounded,
-                                color: Colors.white70,
-                                size: 64,
+                      : Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset(
+                              widget.imageAsset,
+                              fit: BoxFit.contain,
+                              cacheWidth: 800,
+                              errorBuilder: (context, error, stackTrace) => Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.broken_image_rounded,
+                                    color: Colors.white70,
+                                    size: 64,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    'Gambar tidak dapat dimuat',
+                                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                                  ),
+                                ],
                               ),
-                              SizedBox(height: 12),
-                              Text(
-                                'Gambar tidak dapat dimuat',
-                                style: TextStyle(color: Colors.white70, fontSize: 16),
+                            ),
+                            const Positioned.fill(
+                              child: WatermarkOverlay(
+                                watermarkText: 'MieRen',
+                                opacity: 0.30,
+                                fontSize: 18,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                 ),
               ),
