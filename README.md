@@ -32,7 +32,7 @@ MieRen berfokus pada **kualitas premium, konsistensi produksi, dan formulasi ram
 | :--- | :--- |
 | 🌿 **100% Sayuran Segar Alami** | Dibuat langsung dari olahan ekstrak sayur & buah asli (Caisim, Wortel, Buah Naga, Buah Bit). Tanpa pewarna sintetis. |
 | 🧪 **Tanpa Air Abu (Alkali Water)** | Formulasi bebas air abu yang menjaga cita rasa alami mie serta lebih ramah bagi lambung dan pencernaan. |
-| ⏳ **Shelf Life ±3 Bulan** | Sifat produk mie kering (*dry product*) yang tahan hingga 3 bulan tanpa mengurangi tekstur kenyal dan rasa murni. |
+| ⏳ **Shelf Life 6 Bulan** | Sifat produk mie kering (*dry product*) yang tahan hingga 6 bulan tanpa mengurangi tekstur kenyal dan rasa murni. |
 | ⚖️ **Custom Gramasi Porsi Resto** | Gramasi standar **30 gram/pc** dan menerima penyesuaian porsi khusus (*custom*) sesuai standar sajian menu resto Anda. |
 | 💼 **Penawaran Harga Fleksibel** | Skema harga khusus untuk grosir, pasokan rutin restoran, catering, maupun paket ritel. |
 

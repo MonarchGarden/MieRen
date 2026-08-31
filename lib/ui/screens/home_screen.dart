@@ -5,6 +5,7 @@ import '../../data/models/product_variant.dart';
 import '../../data/repositories/catalog_repository.dart';
 import '../widgets/product_card.dart';
 import '../widgets/product_detail_sheet.dart';
+import '../widgets/full_screen_image_viewer.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
@@ -117,28 +118,48 @@ class _HomeScreenState extends State<HomeScreen> {
 
               final leftImageSection = Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      'assets/images/hero_noodle.png',
-                      height: isWide ? 220 : 160,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Image.asset(
-                        'assets/images/caisim.jpg',
-                        height: 180,
+                  GestureDetector(
+                    onTap: () {
+                      FullScreenImageViewer.show(
+                        context,
+                        imageAsset: 'assets/images/hero_noodle.png',
+                        title: 'MieRen Premium Quality',
+                        subtitle: 'Spesialis Mie Kering Tanpa Air Abu',
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'assets/images/hero_noodle.png',
+                        height: isWide ? 220 : 160,
+                        width: double.infinity,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Image.asset(
+                          'assets/images/caisim.jpg',
+                          height: 180,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 12),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      'assets/images/caisim.jpg',
-                      height: isWide ? 180 : 140,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: () {
+                      FullScreenImageViewer.show(
+                        context,
+                        imageAsset: 'assets/images/caisim.jpg',
+                        title: 'Mie Sayur Caisim',
+                        subtitle: 'Warna Alami Dari Ekstrak Caisim Segar',
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'assets/images/caisim.jpg',
+                        height: isWide ? 180 : 140,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
@@ -393,32 +414,61 @@ class _HomeScreenState extends State<HomeScreen> {
               LayoutBuilder(
                 builder: (context, constraints) {
                   final isWide = constraints.maxWidth > 700;
-                  final double cardWidth = isWide ? (constraints.maxWidth - 32) / 3 : constraints.maxWidth;
 
-                  return Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: [
-                      _buildAdvantageCard(
-                        width: cardWidth,
-                        icon: Icons.eco_rounded,
-                        text: company.advantages[0],
-                        isDark: isDark,
+                  if (isWide) {
+                    return IntrinsicHeight(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(
+                            child: _buildAdvantageCard(
+                              icon: Icons.eco_rounded,
+                              text: company.advantages[0],
+                              isDark: isDark,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: _buildAdvantageCard(
+                              icon: Icons.inventory_2_rounded,
+                              text: company.advantages[1],
+                              isDark: isDark,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: _buildAdvantageCard(
+                              icon: Icons.thumb_up_alt_rounded,
+                              text: company.advantages[2],
+                              isDark: isDark,
+                            ),
+                          ),
+                        ],
                       ),
-                      _buildAdvantageCard(
-                        width: cardWidth,
-                        icon: Icons.inventory_2_rounded,
-                        text: company.advantages[1],
-                        isDark: isDark,
-                      ),
-                      _buildAdvantageCard(
-                        width: cardWidth,
-                        icon: Icons.thumb_up_alt_rounded,
-                        text: company.advantages[2],
-                        isDark: isDark,
-                      ),
-                    ],
-                  );
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        _buildAdvantageCard(
+                          icon: Icons.eco_rounded,
+                          text: company.advantages[0],
+                          isDark: isDark,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildAdvantageCard(
+                          icon: Icons.inventory_2_rounded,
+                          text: company.advantages[1],
+                          isDark: isDark,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildAdvantageCard(
+                          icon: Icons.thumb_up_alt_rounded,
+                          text: company.advantages[2],
+                          isDark: isDark,
+                        ),
+                      ],
+                    );
+                  }
                 },
               ),
             ],
@@ -598,7 +648,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildAdvantageCard({
-    required double width,
+    double? width,
     required IconData icon,
     required String text,
     required bool isDark,

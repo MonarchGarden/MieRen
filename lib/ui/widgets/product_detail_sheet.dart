@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/models/product_variant.dart';
 import '../../data/repositories/catalog_repository.dart';
+import 'full_screen_image_viewer.dart';
+import 'watermark_overlay.dart';
 
 class ProductDetailSheet extends StatelessWidget {
   final ProductVariant product;
@@ -86,32 +88,76 @@ class ProductDetailSheet extends StatelessWidget {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Stack(
-                          children: [
-                            Positioned.fill(
-                              child: Image.asset(
-                                product.imageAsset,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) => Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.ramen_dining_rounded,
-                                      size: 72,
-                                      color: product.primaryColor,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              FullScreenImageViewer.show(
+                                context,
+                                imageAsset: product.imageAsset,
+                                title: '#${product.number} ${product.name}',
+                                subtitle: product.badgeText,
+                              );
+                            },
+                            child: Stack(
+                              children: [
+                                Positioned.fill(
+                                  child: Image.asset(
+                                    product.imageAsset,
+                                    fit: BoxFit.cover,
+                                    cacheWidth: 500, // Controlled resolution
+                                    errorBuilder: (context, error, stackTrace) => Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.ramen_dining_rounded,
+                                          size: 72,
+                                          color: product.primaryColor,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          product.name,
+                                          style: TextStyle(
+                                            color: product.primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      product.name,
-                                      style: TextStyle(
-                                        color: product.primaryColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
+                                const WatermarkOverlay(
+                                  opacity: 0.18,
+                                  fontSize: 16,
+                                  watermarkText: 'MieRen © Preview',
+                                ),
+                                // Zoom hint badge bottom right
+                                Positioned(
+                                  bottom: 10,
+                                  right: 10,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withValues(alpha: 0.65),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: const Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(Icons.zoom_in_rounded, color: Colors.white, size: 16),
+                                        SizedBox(width: 4),
+                                        Text(
+                                          'Ketuk untuk Zoom HD',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                             // Catalog PDF Item Number Badge Top-Left
                             Positioned(
                               top: 12,
@@ -164,6 +210,8 @@ class ProductDetailSheet extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+              ),
 
                   const SizedBox(height: 20),
 

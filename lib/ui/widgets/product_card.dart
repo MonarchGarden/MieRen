@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../data/models/product_variant.dart';
+import 'full_screen_image_viewer.dart';
+import 'watermark_overlay.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductVariant product;
@@ -50,16 +52,40 @@ class ProductCard extends StatelessWidget {
                   child: Stack(
                     children: [
                       Positioned.fill(
-                        child: Image.asset(
-                          product.imageAsset,
-                          fit: BoxFit.cover,
-                          cacheWidth: 600,
-                          errorBuilder: (context, error, stackTrace) => Container(
-                            color: product.primaryColor.withValues(alpha: 0.15),
-                            child: Icon(
-                              Icons.ramen_dining_rounded,
-                              size: 72,
-                              color: product.primaryColor,
+                        child: GestureDetector(
+                          onTap: () {
+                            FullScreenImageViewer.show(
+                              context,
+                              imageAsset: product.imageAsset,
+                              title: '#${product.number} ${product.name}',
+                              subtitle: product.shortDescription,
+                            );
+                          },
+                          child: Container(
+                            color: product.primaryColor.withValues(alpha: isDark ? 0.2 : 0.08),
+                            child: Stack(
+                              children: [
+                                Positioned.fill(
+                                  child: Image.asset(
+                                    product.imageAsset,
+                                    fit: BoxFit.cover,
+                                    cacheWidth: 350, // Lower resolution preview
+                                    errorBuilder: (context, error, stackTrace) => Container(
+                                      color: product.primaryColor.withValues(alpha: 0.15),
+                                      child: Icon(
+                                        Icons.ramen_dining_rounded,
+                                        size: 72,
+                                        color: product.primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const WatermarkOverlay(
+                                  opacity: 0.16,
+                                  fontSize: 13,
+                                  watermarkText: 'MieRen © Preview',
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -162,6 +188,48 @@ class ProductCard extends StatelessWidget {
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                      ),
+                      // Zoom HD Pill at Bottom Left of Image
+                      Positioned(
+                        bottom: 10,
+                        left: 10,
+                        child: Material(
+                          color: Colors.black.withValues(alpha: 0.6),
+                          borderRadius: BorderRadius.circular(10),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(10),
+                            onTap: () {
+                              FullScreenImageViewer.show(
+                                context,
+                                imageAsset: product.imageAsset,
+                                title: '#${product.number} ${product.name}',
+                                subtitle: product.shortDescription,
+                              );
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.zoom_in_rounded,
+                                    size: 13,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 3),
+                                  Text(
+                                    'HD',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
