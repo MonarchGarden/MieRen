@@ -77,7 +77,7 @@ class CatalogRepository {
       imageAsset: 'assets/images/original.jpg',
       colorHex: '#8D6E63',
       primaryColor: Color(0xFF8D6E63),
-      ingredients: ['Tepung Terigu Pilihan', 'Air Murni', 'Garam Alami'],
+      ingredients: ['Tepung Terigu', 'Telur', 'Air', 'Garam'],
       highlights: ['Kenyal Alami', 'Tanpa Air Abu', 'Serbaguna'],
     ),
     const ProductVariant(
