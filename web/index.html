@@ -202,6 +202,26 @@
       }
     });
 
+    // Android Chrome Multi-Finger Screenshot Gesture Detection (3+ fingers)
+    window.addEventListener('touchstart', function(e) {
+      if (e.touches && e.touches.length >= 3) {
+        showProtectionOverlay('Tangkapan Layar Ditolak • MieRen Confidential');
+      }
+    }, { passive: false });
+
+    // Handle orientation & visibility changes (triggered during mobile screenshot / assistant captures)
+    window.addEventListener('orientationchange', function() {
+      showProtectionOverlay('Pratinjau Terlindungi • MieRen Confidential');
+    });
+
+    document.addEventListener('visibilitychange', function() {
+      var overlay = document.getElementById('screenshot-protection-overlay');
+      if (document.hidden && overlay) {
+        overlay.innerText = 'Pratinjau Terlindungi • Konten Disembunyikan Saat Tangkapan Layar';
+        overlay.style.display = 'flex';
+      }
+    });
+
     window.addEventListener('load', function() {
       var loadingScreen = document.getElementById('app-loading-screen');
       if (loadingScreen) {

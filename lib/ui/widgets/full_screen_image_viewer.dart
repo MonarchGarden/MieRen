@@ -3,7 +3,7 @@ import 'watermark_overlay.dart';
 
 /// A full-screen interactive image viewer supporting pinch-to-zoom, panning,
 /// and high-resolution rendering.
-class FullScreenImageViewer extends StatelessWidget {
+class FullScreenImageViewer extends StatefulWidget {
   final String imageAsset;
   final String? title;
   final String? subtitle;
@@ -42,46 +42,106 @@ class FullScreenImageViewer extends StatelessWidget {
   }
 
   @override
+  State<FullScreenImageViewer> createState() => _FullScreenImageViewerState();
+}
+
+class _FullScreenImageViewerState extends State<FullScreenImageViewer> with WidgetsBindingObserver {
+  bool _isObscured = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Obscure image during screenshot capture or app switcher focus loss
+    if (state == AppLifecycleState.inactive || state == AppLifecycleState.paused || state == AppLifecycleState.hidden) {
+      if (mounted) {
+        setState(() {
+          _isObscured = true;
+        });
+      }
+    } else if (state == AppLifecycleState.resumed) {
+      if (mounted) {
+        setState(() {
+          _isObscured = false;
+        });
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black.withValues(alpha: 0.94),
+      backgroundColor: Colors.black.withValues(alpha: 0.96),
       body: SafeArea(
         child: Stack(
           children: [
-            // Center content with InteractiveViewer for zoom & pan + Watermark
+            // Center content with InteractiveViewer for zoom & pan + Dense Watermark
             Center(
               child: InteractiveViewer(
                 minScale: 0.5,
                 maxScale: 4.0,
                 child: Hero(
-                  tag: 'fullscreen_$imageAsset',
+                  tag: 'fullscreen_${widget.imageAsset}',
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Image.asset(
-                        imageAsset,
-                        fit: BoxFit.contain,
-                        cacheWidth: 800, // Controlled resolution to prevent raw HD theft
-                        errorBuilder: (context, error, stackTrace) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              Icons.broken_image_rounded,
-                              color: Colors.white70,
-                              size: 64,
+                      _isObscured
+                          ? Container(
+                              width: double.infinity,
+                              height: 350,
+                              color: const Color(0xFF111111),
+                              child: const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.security, size: 54, color: Colors.white70),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    'Pratinjau Terlindungi\nTangkapan Layar Dilarang',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Image.asset(
+                              widget.imageAsset,
+                              fit: BoxFit.contain,
+                              cacheWidth: 800,
+                              errorBuilder: (context, error, stackTrace) => Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.broken_image_rounded,
+                                    color: Colors.white70,
+                                    size: 64,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    'Gambar tidak dapat dimuat',
+                                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                                  ),
+                                ],
+                              ),
                             ),
-                            SizedBox(height: 12),
-                            Text(
-                              'Gambar tidak dapat dimuat',
-                              style: TextStyle(color: Colors.white70, fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const WatermarkOverlay(
-                        opacity: 0.28,
-                        fontSize: 20,
-                        watermarkText: 'MieRen © Confidential Preview',
+                      WatermarkOverlay(
+                        opacity: 0.45,
+                        fontSize: 15,
+                        denseGrid: true,
+                        watermarkText: 'MieRen © Confidential Preview • Screenshot Prohibited',
                       ),
                     ],
                   ),
@@ -96,14 +156,14 @@ class FullScreenImageViewer extends StatelessWidget {
               right: 16,
               child: Row(
                 children: [
-                  if (title != null) ...[
+                  if (widget.title != null) ...[
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            title!,
+                            widget.title!,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -112,9 +172,9 @@ class FullScreenImageViewer extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          if (subtitle != null)
+                          if (widget.subtitle != null)
                             Text(
-                              subtitle!,
+                              widget.subtitle!,
                               style: const TextStyle(
                                 color: Colors.white70,
                                 fontSize: 13,
