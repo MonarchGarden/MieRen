@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/MieRen/">
+
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="MieRen - Produsen Mie Sayur Alami & Sehat">
+
+  <style>
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      background-color: #1B3B22 !important;
+    }
+    html, body, canvas, flt-glass-pane {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    * {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+    img, canvas {
+      -webkit-user-drag: none !important;
+      -khtml-user-drag: none !important;
+      -moz-user-drag: none !important;
+      -o-user-drag: none !important;
+      user-drag: none !important;
+    }
+    @media print {
+      html, body {
+        display: none !important;
+        visibility: hidden !important;
+      }
+    }
+    #screenshot-protection-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #111111;
+      color: #ffffff;
+      z-index: 999999;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, -apple-system, sans-serif;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Branded Fullscreen Web Loading Screen */
+    #app-loading-screen {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: linear-gradient(135deg, #1B3B22 0%, #2E7D32 50%, #1B3B22 100%) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      z-index: 999998 !important;
+      color: #ffffff !important;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+      transition: opacity 0.3s ease-out !important;
+      pointer-events: none !important;
+    }
+    .loading-logo-container {
+      position: relative !important;
+      width: 120px !important;
+      height: 120px !important;
+      margin-bottom: 20px !important;
+      flex-shrink: 0 !important;
+    }
+    .loading-logo {
+      width: 120px !important;
+      height: 120px !important;
+      object-fit: cover !important;
+      border-radius: 50% !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 255, 255, 0.2) !important;
+      border: 3px solid rgba(255, 255, 255, 0.9) !important;
+      display: block !important;
+      animation: logoPulse 2s infinite ease-in-out !important;
+    }
+    .loading-ring {
+      position: absolute !important;
+      top: -8px !important;
+      left: -8px !important;
+      right: -8px !important;
+      bottom: -8px !important;
+      border: 3px solid transparent !important;
+      border-top-color: #A5D6A7 !important;
+      border-right-color: #A5D6A7 !important;
+      border-radius: 50% !important;
+      animation: spinRing 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite !important;
+    }
+    .loading-brand-title {
+      font-size: 26px !important;
+      font-weight: 800 !important;
+      letter-spacing: 2px !important;
+      color: #FFFFFF !important;
+      margin-bottom: 6px !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    }
+    .loading-brand-sub {
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      color: #E8F5E9 !important;
+      letter-spacing: 1px !important;
+      opacity: 0.9 !important;
+    }
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+
+    // Disable Right-Click Context Menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    }, false);
+
+    // Disable Dragging
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+    }, false);
+
+    // Disable PrintScreen / Screenshot shortcuts & DevTools shortcuts
+    document.addEventListener('keyup', function(e) {
+      if (e.key === 'PrintScreen' || e.keyCode === 44) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText('');
+        }
+        showProtectionOverlay('Tangkapan Layar Ditolak • MieRen Confidential');
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'PrintScreen' || e.keyCode === 44) {
+        e.preventDefault();
+        showProtectionOverlay('Tangkapan Layar Ditolak • MieRen Confidential');
+      }
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+      }
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+      }
+      if (e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i'))) {
+        e.preventDefault();
+      }
+    });
+
+    function showProtectionOverlay(msg) {
+      var overlay = document.getElementById('screenshot-protection-overlay');
+      if (overlay) {
+        overlay.innerText = msg || 'Tangkapan Layar Dibatasi demi Keamanan Produk MieRen';
+        overlay.style.display = 'flex';
+        setTimeout(function() {
+          overlay.style.display = 'none';
+        }, 2000);
+      }
+    }
+
+    window.addEventListener('blur', function() {
+      var overlay = document.getElementById('screenshot-protection-overlay');
+      if (overlay) {
+        overlay.innerText = 'Pratinjau Terlindungi • Konten Disembunyikan Saat Tangkapan Layar / Pindah Jendela';
+        overlay.style.display = 'flex';
+      }
+    });
+
+    window.addEventListener('focus', function() {
+      var overlay = document.getElementById('screenshot-protection-overlay');
+      if (overlay) {
+        overlay.style.display = 'none';
+      }
+    });
+
+    // Android Chrome Multi-Finger Screenshot Gesture Detection (3+ fingers)
+    window.addEventListener('touchstart', function(e) {
+      if (e.touches && e.touches.length >= 3) {
+        showProtectionOverlay('Tangkapan Layar Ditolak • MieRen Confidential');
+      }
+    }, { passive: false });
+
+    // Handle orientation & visibility changes (triggered during mobile screenshot / assistant captures)
+    window.addEventListener('orientationchange', function() {
+      showProtectionOverlay('Pratinjau Terlindungi • MieRen Confidential');
+    });
+
+    document.addEventListener('visibilitychange', function() {
+      var overlay = document.getElementById('screenshot-protection-overlay');
+      if (document.hidden && overlay) {
+        overlay.innerText = 'Pratinjau Terlindungi • Konten Disembunyikan Saat Tangkapan Layar';
+        overlay.style.display = 'flex';
+      }
+    });
+
+    window.addEventListener('load', function() {
+      var loadingScreen = document.getElementById('app-loading-screen');
+      if (loadingScreen) {
+        setTimeout(function() {
+          loadingScreen.style.opacity = '0';
+          setTimeout(function() {
+            loadingScreen.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }, 350);
+        }, 300);
+      }
+    });
+  </script>
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="MieRen">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+
+  <title>MieRen - Produsen Mie Sayur Alami</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div id="app-loading-screen">
+    <div class="loading-logo-container">
+      <div class="loading-ring"></div>
+      <img src="assets/assets/images/logo-badge-centered.jpg" alt="MieRen Logo" class="loading-logo" onerror="this.src='assets/images/logo-badge-centered.jpg'">
+    </div>
+    <div class="loading-brand-title">MieRen</div>
+    <div class="loading-brand-sub">Produsen Mie Sayur Alami & Sehat</div>
+  </div>
+
+  <div id="screenshot-protection-overlay">
+    Pratinjau Terlindungi • Tangkapan Layar & Penyimpanan Gambar Dilarang
+  </div>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
