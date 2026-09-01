@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         imageAsset: 'assets/images/caisim.jpg',
                         title: 'Mie Sayur Caisim',
-                        subtitle: 'Warna Alami Dari Ekstrak Caisim Segar',
+                        subtitle: 'Warna Alami Dari Caisim Segar',
                       );
                     },
                     child: ClipRRect(

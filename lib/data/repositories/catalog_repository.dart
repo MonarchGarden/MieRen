@@ -104,7 +104,7 @@ class CatalogRepository {
       badgeText: 'Oranye Alami',
       shortDescription: 'Mie kering warna oranye cerah bernutrisi dari wortel segar.',
       description:
-          'Mie Sayur Wortel memadukan tepung terigu berkualitas dan ekstrak wortel segar murni kaya Beta-Karoten.',
+          'Mie Sayur Wortel memadukan tepung terigu berkualitas dan wortel segar murni kaya Beta-Karoten.',
       imageAsset: 'assets/images/wortel.jpg',
       colorHex: '#E65100',
       primaryColor: Color(0xFFE65100),
@@ -139,7 +139,7 @@ class CatalogRepository {
       imageAsset: 'assets/images/mie_buah_bit.jpeg',
       colorHex: '#6A1B9A',
       primaryColor: Color(0xFF6A1B9A),
-      ingredients: ['Tepung Terigu', 'Ekstrak Buah Bit Segar', 'Air Murni', 'Garam'],
+      ingredients: ['Tepung Terigu', 'Buah Bit Segar', 'Air Murni', 'Garam'],
       highlights: ['Warna Ungu Alami', 'Tinggi Zat Besi', 'Rasa Gurih Alami'],
     ),
   ];

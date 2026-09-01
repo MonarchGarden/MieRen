@@ -151,7 +151,7 @@ class _ChatbotSheetState extends State<ChatbotSheet> {
     // 5. Variants / Flavors / Product List
     if (q.contains('varian') || q.contains('produk') || q.contains('rasa') || q.contains('jenis') || q.contains('katalog')) {
       final names = products.map((p) => '• ${p.name} (${p.category.label})').join('\n');
-      return 'MieRen menyediakan 5 varian mie kering berbahan sayuran alami:\n$names\n\nSemua varian dibuat dari ekstrak sayur alami tanpa pewarna buatan!';
+      return 'MieRen menyediakan 5 varian mie kering berbahan sayuran alami:\n$names\n\nSemua varian dibuat dari sayur dan buah alami tanpa pewarna buatan!';
     }
 
     // 6. Pricing, Order, Minimum Quantity, Wholesale
@@ -173,7 +173,7 @@ class _ChatbotSheetState extends State<ChatbotSheet> {
     // 9. Ingredients, Health & Quality
     if (q.contains('pengawet') || q.contains('air abu') || q.contains('sehat') || q.contains('sayur') ||
         q.contains('bahan') || q.contains('komposisi') || q.contains('alami') || q.contains('organik') || q.contains('nutrisi')) {
-      return 'Keunggulan Alami MieRen:\n• 100% Menggunakan bahan & ekstrak sayur segar alami\n• Bebas pewarna sintetis & bebas pengawet buatan\n• Formulasi khusus TANPA AIR ABU (alkali water) sehingga lebih aman & ramah di pencernaan!';
+      return 'Keunggulan Alami MieRen:\n• 100% Menggunakan bahan sayur & buah segar alami\n• Bebas pewarna sintetis & bebas pengawet buatan\n• Formulasi khusus TANPA AIR ABU (alkali water) sehingga lebih aman & ramah di pencernaan!';
     }
 
     // 10. Shelf Life & Storage

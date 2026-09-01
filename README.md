@@ -5,7 +5,7 @@
 [![PIRT Certified](https://img.shields.io/badge/Legality-PIRT%20Certified-4CAF50)](#-sertifikasi--legalitas)
 [![Halal Process](https://img.shields.io/badge/Certification-Halal%20In%20Process-00897B)](#-sertifikasi--legalitas)
 
-**MieRen** adalah produsen mie kering premium berbahan dasar ekstrak sayuran segar alami. Diciptakan sebagai opsi alternatif sehat bagi restoran, kafe, catering, dan ritel untuk menyajikan hidangan karbohidrat (mie) dengan kebaikan nutrisi alami dan warna-warni memikat dari ekstrak tumbuhan asli.
+**MieRen** adalah produsen mie kering premium berbahan dasar sayuran segar alami. Diciptakan sebagai opsi alternatif sehat bagi restoran, kafe, catering, dan ritel untuk menyajikan hidangan karbohidrat (mie) dengan kebaikan nutrisi alami dan warna-warni memikat dari tumbuhan asli.
 
 ---
 
@@ -30,7 +30,7 @@ MieRen berfokus pada **kualitas premium, konsistensi produksi, dan formulasi ram
 
 | Fitur | Deskripsi |
 | :--- | :--- |
-| 🌿 **100% Sayuran Segar Alami** | Dibuat langsung dari olahan ekstrak sayur & buah asli (Caisim, Wortel, Buah Naga, Buah Bit). Tanpa pewarna sintetis. |
+| 🌿 **100% Sayuran Segar Alami** | Dibuat langsung dari olahan sayur & buah asli (Caisim, Wortel, Buah Naga, Buah Bit). Tanpa pewarna sintetis. |
 | 🧪 **Tanpa Air Abu (Alkali Water)** | Formulasi bebas air abu yang menjaga cita rasa alami mie serta lebih ramah bagi lambung dan pencernaan. |
 | ⏳ **Shelf Life 6 Bulan** | Sifat produk mie kering (*dry product*) yang tahan hingga 6 bulan tanpa mengurangi tekstur kenyal dan rasa murni. |
 | ⚖️ **Custom Gramasi Porsi Resto** | Gramasi standar **30 gram/pc** dan menerima penyesuaian porsi khusus (*custom*) sesuai standar sajian menu resto Anda. |
@@ -44,22 +44,22 @@ MieRen menghadirkan 5 varian mie sayur alami khas dengan karakter warna dan manf
 
 ### 1. 🥬 Mie Caisim (Hijau Alami)
 - **Kategori**: Mie Sayuran
-- **Bahan Utama**: Tepung Terigu Pilihan, Ekstrak Daun Caisim Segar (Mustard Greens), Air Murni, Garam Alami.
+- **Bahan Utama**: Tepung Terigu Pilihan, Daun Caisim Segar (Mustard Greens), Air Murni, Garam Alami.
 - **Keunggulan**: Warna hijau segar alami nan kaya klorofil & Vitamin A, tekstur kenyal khas, serta cita rasa gurih lembut yang cocok dipadukan dengan berbagai racikan bumbu mie ayam maupun mie goreng.
 
 ### 2. 🥕 Mie Wortel (Oranye Alami)
 - **Kategori**: Mie Sayuran
-- **Bahan Utama**: Tepung Terigu Pilihan, Ekstrak Wortel Segar (Carrot), Air Murni, Garam Alami.
+- **Bahan Utama**: Tepung Terigu Pilihan, Wortel Segar (Carrot), Air Murni, Garam Alami.
 - **Keunggulan**: Warna oranye terang dari beta-karoten asli wortel, kaya serat dan Vitamin A, memberikan rasa manis alami yang disukai anak-anak.
 
 ### 3. 🌺 Mie Buah Naga (Merah / Pink Alami)
 - **Kategori**: Mie Buah & Eksotis
-- **Bahan Utama**: Tepung Terigu Pilihan, Ekstrak Buah Naga Merah Segar (Dragonfruit), Air Murni, Garam Alami.
+- **Bahan Utama**: Tepung Terigu Pilihan, Buah Naga Merah Segar (Dragonfruit), Air Murni, Garam Alami.
 - **Keunggulan**: Warna pink/merah eksotis dari antioksidan buah naga alami, kaya Vitamin C, menjadi daya tarik visual premium untuk menu kuliner modern.
 
 ### 4. 💜 Mie Buah Bit (Ungu Elegan)
 - **Kategori**: Mie Buah & Nutrisi Super
-- **Bahan Utama**: Tepung Terigu Pilihan, Ekstrak Buah Bit Segar (Beetroot), Air Murni, Garam Alami.
+- **Bahan Utama**: Tepung Terigu Pilihan, Buah Bit Segar (Beetroot), Air Murni, Garam Alami.
 - **Keunggulan**: Menggunakan *superfood* buah bit kaya zat besi dan antioksidan alami, memberikan nuansa ungu gelap elegan serta nutrisi tinggi.
 
 ### 5. 🍜 Mie Original (Putih Natural)
